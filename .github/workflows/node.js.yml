@@ -18,6 +18,7 @@
 
       # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
       permissions:
+        contents: read
         pages: write      # to deploy to Pages
         id-token: write   # to verify the deployment originates from an appropriate source
 
@@ -40,7 +41,19 @@
           env:
             NODE_ENV: production
 
-        - name: Deploy 🚀
-          uses: JamesIves/github-pages-deploy-action@v4
+        - name: Upload artifact
+          uses: actions/upload-pages-artifact@v1
           with:
-            folder: build # The folder the action should deploy.
+            # Upload entire repository
+            path: "./dist"
+
+        - name: Deploy to GitHub Pages
+          id: deployment
+          uses: actions/deploy-pages@v1
+        - run: echo ${{ steps.deployment.outputs.page_url }}
+
+        # - name: Deploy 🚀
+        #   uses: JamesIves/github-pages-deploy-action@v4
+        #   with:
+        #     folder: build # The folder the action should deploy.
+        #   - run: echo ${{ steps.deployment.outputs.page_url }}
