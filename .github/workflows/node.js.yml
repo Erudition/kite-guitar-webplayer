@@ -10,7 +10,7 @@
       branches: master
       paths-ignore:
         - "**.md"
-
+   
   jobs:
     build-deploy:
       runs-on: ubuntu-latest
